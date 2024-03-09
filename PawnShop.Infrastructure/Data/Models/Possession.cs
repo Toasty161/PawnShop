@@ -28,7 +28,7 @@ namespace PawnShop.Infrastructure.Data.Models
         public string Location { get; set; } = string.Empty;
 
         [Required]
-        public Guid OwnerId { get; set; }
+        public string OwnerId { get; set; } = string.Empty;
 
         [Required]
         [ForeignKey(nameof(OwnerId))]

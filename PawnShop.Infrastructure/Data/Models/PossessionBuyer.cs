@@ -12,7 +12,7 @@ namespace PawnShop.Infrastructure.Data.Models
     public class PossessionBuyer
     {
         [Required]
-        public Guid BuyerId { get; set; }
+        public string BuyerId { get; set; } = string.Empty;
 
         [Required]
         [ForeignKey(nameof(BuyerId))]
