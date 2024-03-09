@@ -5,6 +5,10 @@ VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PawnShop", "PawnShop\PawnShop.csproj", "{746DC306-5E5C-4A1B-B9FB-1D23315C2653}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PawnShop.Core", "PawnShop.Core\PawnShop.Core.csproj", "{D2FA0F70-15E2-4E8B-8633-A1DFBA6EEC2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PawnShop.Infrastructure", "PawnShop.Infrastructure\PawnShop.Infrastructure.csproj", "{DFFC5A52-830A-4C0A-96C5-23E586BECECE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{746DC306-5E5C-4A1B-B9FB-1D23315C2653}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{746DC306-5E5C-4A1B-B9FB-1D23315C2653}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{746DC306-5E5C-4A1B-B9FB-1D23315C2653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2FA0F70-15E2-4E8B-8633-A1DFBA6EEC2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2FA0F70-15E2-4E8B-8633-A1DFBA6EEC2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2FA0F70-15E2-4E8B-8633-A1DFBA6EEC2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2FA0F70-15E2-4E8B-8633-A1DFBA6EEC2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFFC5A52-830A-4C0A-96C5-23E586BECECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFFC5A52-830A-4C0A-96C5-23E586BECECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFFC5A52-830A-4C0A-96C5-23E586BECECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFFC5A52-830A-4C0A-96C5-23E586BECECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
