@@ -53,7 +53,59 @@ namespace PawnShop.Data
                 .HasForeignKey(c => c.BuyerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Category>()
+                .HasData(GetCategories());
+
             base.OnModelCreating(builder);
+        }
+
+        private Category[] GetCategories()
+        {
+            var result = new Category[]
+            {
+                new Category()
+                {
+                    Id = 1,
+                    Name = "Food"
+                },
+                new Category()
+                {
+                    Id = 2,
+                    Name = "Drink"
+                },
+                new Category()
+                {
+                    Id = 3,
+                    Name = "Plant"
+                },
+                new Category()
+                {
+                    Id = 4,
+                    Name = "Furniture"
+                },
+                new Category()
+                {
+                    Id = 5,
+                    Name = "Vehicle"
+                },
+                new Category()
+                {
+                    Id = 6,
+                    Name = "Appliance"
+                },
+                new Category()
+                {
+                    Id = 7,
+                    Name = "Electronic"
+                },
+                new Category()
+                {
+                    Id = 8,
+                    Name = "Other"
+                },
+            };
+
+            return result;
         }
     }
 }
