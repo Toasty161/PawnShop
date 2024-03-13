@@ -1,0 +1,32 @@
+﻿@using PawnShop.Core.Models
+@model List<ProductViewModel>
+@{
+	ViewBag.Title = "All products";
+}
+
+<div class="text-center">
+    <h1>All available products:</h1>
+</div>
+
+@if (Model.Count > 0)
+{
+	<div style="display:inline-block">
+        @foreach (var product in Model)
+        {
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@product.Name</h5>
+                    <p class="card-text">@product.Description</p>
+                    <p class="card-text">Category: @product.Category</p>
+                    <p class="card-text">Weight: @product.Weight kg</p>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p>No products yet!</p>
+    </div>
+}
