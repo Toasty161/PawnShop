@@ -15,6 +15,11 @@ namespace PawnShop.Controllers
 
         public IActionResult Index()
         {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("All", "Product");
+            }
+
             return View();
         }
 
