@@ -33,5 +33,8 @@ namespace PawnShop.Core.Models
 
         [Required]
         public int CategoryId { get; set; }
+
+        [Required]
+        public string Category { get; set; } = string.Empty;
     }
 }
