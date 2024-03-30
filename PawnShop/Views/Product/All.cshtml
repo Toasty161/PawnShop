@@ -20,6 +20,12 @@
                     <p class="card-text">Category: @product.Category</p>
                     <p class="card-text">Weight: @product.Weight kg</p>
                 </div>
+                <div class="text-center">
+                    <form method="get">
+                        <button asp-controller="Product" asp-action="Edit" type="submit" name="id" value="@product.Id" class="btn btn-primary btn-warning">Edit</button>
+                        <button asp-controller="Product" asp-action="Delete" type="submit" name="id" value="@product.Id" class="btn btn-primary btn-danger">Delete</button>
+                    </form>
+                </div>
             </div>
         }
     </div>
