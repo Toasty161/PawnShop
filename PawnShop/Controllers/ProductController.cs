@@ -73,7 +73,7 @@ namespace PawnShop.Controllers
 
             var model = await _productService.GetByIdAsync(id);
 
-            TempData["Id"] = id;
+            TempData["EditId"] = id;
 
             return View(model);
         }
@@ -88,9 +88,30 @@ namespace PawnShop.Controllers
 
             model.OwnerId = GetUserId();
             model.Category = _context.Categories.FindAsync(model.CategoryId).Result.Name;
-            model.Id = (int)TempData["Id"];
+            model.Id = (int)TempData["EditId"];
 
             await _productService.EditAsync(model);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (await _context.Products.FindAsync(id) == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            TempData["DeleteId"] = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete()
+        {
+            await _productService.DeleteAsync((int)TempData["DeleteId"]);
 
             return RedirectToAction(nameof(All));
         }
