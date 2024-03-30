@@ -1,9 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Versioning;
 using PawnShop.Core.Models;
 using PawnShop.Core.Services;
 using PawnShop.Data;
+using PawnShop.Infrastructure.Data.Models;
+using System.Runtime.CompilerServices;
+using System.Security.Claims;
 
 namespace PawnShop.Controllers
 {
@@ -35,6 +39,33 @@ namespace PawnShop.Controllers
             }).ToList();
 
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(ProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            model.OwnerId = GetUserId();
+            model.Category = _context.Categories.FindAsync(model.CategoryId).Result.Name;
+
+            await _productService.AddAsync(model);
+
+            return RedirectToAction(nameof(All));
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
 }

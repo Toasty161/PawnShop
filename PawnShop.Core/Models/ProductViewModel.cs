@@ -28,13 +28,11 @@ namespace PawnShop.Core.Models
         [Range(ProductMinWeight, ProductMaxWeight)]
         public double Weight { get; set; }
 
-        [Required]
         public string OwnerId { get; set; } = string.Empty;
 
         [Required]
         public int CategoryId { get; set; }
 
-        [Required]
         public string Category { get; set; } = string.Empty;
     }
 }
