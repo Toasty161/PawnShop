@@ -1,0 +1,41 @@
+﻿@using PawnShop.Core.Models
+@model ProductViewModel
+@{
+	ViewBag.Title = "Edit product";
+}
+
+<div class="text-center">
+    <h1>Edit a product:</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label for="exampleName" class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="exampleName" name="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleDescription" class="form-label">Description</label>
+            <input asp-for="Description" type="text" class="form-control" id="exampleDescription" name="Description">
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleWeight" class="form-label">Weight</label>
+            <input asp-for="Weight" type="text" class="form-control" id="exampleWeight" name="Weight" pattern="^\d+((.)|(.\d{0,2})?)$">
+            <span asp-validation-for="Weight" class="text-danger"></span>
+        </div>
+        <select name="CategoryId">
+            <option value="1">Food</option>
+            <option value="2">Drink</option>
+            <option value="3">Plant</option>
+            <option value="4">Furniture</option>
+            <option value="5">Vehicle</option>
+            <option value="6">Appliance</option>
+            <option value="7">Electronic</option>
+            <option value="8">Other</option>
+        </select>
+        <button type="submit" asp-controller="Product" asp-action="Edit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
