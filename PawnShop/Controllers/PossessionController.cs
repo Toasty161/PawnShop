@@ -86,6 +86,27 @@ namespace PawnShop.Controllers
             return RedirectToAction(nameof(All));
         }
 
+		[HttpGet]
+		public async Task<IActionResult> Delete(int id)
+		{
+			if (await _context.Possessions.FindAsync(id) == null)
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			TempData["DeletePossessionId"] = id;
+
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Delete()
+		{
+			await _possessionService.DeleteAsync((int)TempData["DeletePossessionId"]);
+
+			return RedirectToAction(nameof(All));
+		}
+
 		private string GetUserId()
 		{
 			return User.FindFirst(ClaimTypes.NameIdentifier).Value;
