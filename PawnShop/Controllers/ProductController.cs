@@ -91,6 +91,7 @@ namespace PawnShop.Controllers
             }
 
             TempData["EditId"] = id;
+            TempData["EditOwnerId"] = entity.OwnerId;
 
             var model = await _productService.GetByIdAsync(id);
 
@@ -105,7 +106,7 @@ namespace PawnShop.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            model.OwnerId = GetUserId();
+            model.OwnerId = TempData["EditOwnerId"].ToString();
             model.Category = _context.Categories.FindAsync(model.CategoryId).Result.Name;
             model.Id = (int)TempData["EditId"];
 

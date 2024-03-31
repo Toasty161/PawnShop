@@ -65,7 +65,16 @@ namespace PawnShop.Controllers
 
 			var model = await _possessionService.GetByIdAsync(id);
 
+			if (GetUserId() != model.OwnerId)
+			{
+				if (!User.IsInRole("Administrator"))
+				{
+					return RedirectToAction(nameof(All));
+				}
+			}
+
 			TempData["EditPossessionId"] = id;
+			TempData["EditPossessionOwnerId"] = model.OwnerId;
 
 			return View(model);
 		}
@@ -78,13 +87,13 @@ namespace PawnShop.Controllers
 				return RedirectToAction(nameof(All));
 			}
 
-			model.OwnerId = GetUserId();
 			model.Id = (int)TempData["EditPossessionId"];
+			model.OwnerId = TempData["EditPossessionOwnerId"].ToString();
 
 			await _possessionService.EditAsync(model);
 
-            return RedirectToAction(nameof(All));
-        }
+			return RedirectToAction(nameof(All));
+		}
 
 		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
@@ -92,6 +101,16 @@ namespace PawnShop.Controllers
 			if (await _context.Possessions.FindAsync(id) == null)
 			{
 				return RedirectToAction(nameof(All));
+			}
+
+			var entity = await _context.Possessions.FindAsync(id);
+
+			if (GetUserId() != entity.OwnerId)
+			{
+				if (!User.IsInRole("Administrator"))
+				{
+					return RedirectToAction(nameof(All));
+				}
 			}
 
 			TempData["DeletePossessionId"] = id;
@@ -102,7 +121,17 @@ namespace PawnShop.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Delete()
 		{
-			await _possessionService.DeleteAsync((int)TempData["DeletePossessionId"]);
+			int id = (int)TempData["DeletePossessionId"];
+
+			if (GetUserId() != _context.Possessions.FindAsync(id).Result.OwnerId)
+			{
+				if (!User.IsInRole("Administrator"))
+				{
+					return RedirectToAction(nameof(All));
+				}
+			}
+
+			await _possessionService.DeleteAsync(id);
 
 			return RedirectToAction(nameof(All));
 		}

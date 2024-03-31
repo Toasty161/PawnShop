@@ -50,7 +50,7 @@ namespace PawnShop.Core.Services
                 Area = possessionViewModel.Area,
                 Location = possessionViewModel.Location,
                 Name = possessionViewModel.Name,
-                OwnerId = possessionViewModel.OwnerId
+                OwnerId= possessionViewModel.OwnerId
             };
 
             _context.Possessions.Update(entity);

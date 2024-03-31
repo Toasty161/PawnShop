@@ -52,8 +52,8 @@ namespace PawnShop.Core.Services
                 Name = productViewModel.Name,
                 Description = productViewModel.Description,
                 Id = productViewModel.Id,
-                OwnerId = productViewModel.OwnerId,
-                Weight = productViewModel.Weight
+                Weight = productViewModel.Weight,
+                OwnerId = productViewModel.OwnerId
             };
 
             _context.Products.Update(entity);
