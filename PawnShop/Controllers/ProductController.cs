@@ -71,9 +71,16 @@ namespace PawnShop.Controllers
                 return RedirectToAction(nameof(All));
             }
 
-            var model = await _productService.GetByIdAsync(id);
+            var entity = await _context.Products.FindAsync(id);
+
+            if (GetUserId() != entity.OwnerId)
+            {
+                return RedirectToAction(nameof(All));
+            }
 
             TempData["EditId"] = id;
+
+            var model = await _productService.GetByIdAsync(id);
 
             return View(model);
         }
@@ -103,6 +110,13 @@ namespace PawnShop.Controllers
                 return RedirectToAction(nameof(All));
             }
 
+            var entity = await _context.Products.FindAsync(id);
+
+            if (GetUserId() != entity.OwnerId)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
             TempData["DeleteId"] = id;
 
             return View();
@@ -111,7 +125,16 @@ namespace PawnShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete()
         {
-            await _productService.DeleteAsync((int)TempData["DeleteId"]);
+            int deleteId = (int)TempData["DeleteId"];
+
+            var entity = await _context.Products.FindAsync(deleteId);
+
+            if (GetUserId() != entity.OwnerId)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            await _productService.DeleteAsync(deleteId);
 
             return RedirectToAction(nameof(All));
         }
