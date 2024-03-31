@@ -239,7 +239,7 @@ namespace PawnShop.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
 
                     b.HasData(
                         new
@@ -313,7 +313,7 @@ namespace PawnShop.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Possessions");
+                    b.ToTable("Possessions", (string)null);
                 });
 
             modelBuilder.Entity("PawnShop.Infrastructure.Data.Models.PossessionBuyer", b =>
@@ -328,7 +328,7 @@ namespace PawnShop.Data.Migrations
 
                     b.HasIndex("PossessionId");
 
-                    b.ToTable("PossessionBuyers");
+                    b.ToTable("PossessionBuyers", (string)null);
                 });
 
             modelBuilder.Entity("PawnShop.Infrastructure.Data.Models.Product", b =>
@@ -365,7 +365,7 @@ namespace PawnShop.Data.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("PawnShop.Infrastructure.Data.Models.ProductBuyer", b =>
@@ -380,7 +380,7 @@ namespace PawnShop.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductBuyers");
+                    b.ToTable("ProductBuyers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

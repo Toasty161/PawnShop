@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Versioning;
 using PawnShop.Core.Models;
 using PawnShop.Core.Services;
 using PawnShop.Data;
+using PawnShop.Infrastructure.Data.IdentityModels;
 using PawnShop.Infrastructure.Data.Models;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
@@ -16,11 +18,18 @@ namespace PawnShop.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly ProductService _productService;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProductController(ApplicationDbContext context, ProductService productService)
+        public ProductController(ApplicationDbContext context, 
+            ProductService productService, 
+            RoleManager<IdentityRole> roleManager,
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
             _productService = productService;
+            _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> All()
@@ -75,7 +84,10 @@ namespace PawnShop.Controllers
 
             if (GetUserId() != entity.OwnerId)
             {
-                return RedirectToAction(nameof(All));
+                if (!User.IsInRole("Administrator"))
+                {
+					return RedirectToAction(nameof(All));
+				}
             }
 
             TempData["EditId"] = id;
@@ -114,7 +126,10 @@ namespace PawnShop.Controllers
 
             if (GetUserId() != entity.OwnerId)
             {
-                return RedirectToAction(nameof(All));
+                if (!User.IsInRole("Administrator"))
+                {
+					return RedirectToAction(nameof(All));
+				}
             }
 
             TempData["DeleteId"] = id;
@@ -131,7 +146,10 @@ namespace PawnShop.Controllers
 
             if (GetUserId() != entity.OwnerId)
             {
-                return RedirectToAction(nameof(All));
+                if (!User.IsInRole("Administrator"))
+                {
+					return RedirectToAction(nameof(All));
+				}
             }
 
             await _productService.DeleteAsync(deleteId);

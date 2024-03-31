@@ -22,7 +22,7 @@
                     <p class="card-text">Weight: @product.Weight kg</p>
                 </div>
                 <div class="text-center">
-                    @if (User.FindFirst(ClaimTypes.NameIdentifier).Value == product.OwnerId)
+                    @if (User.FindFirst(ClaimTypes.NameIdentifier).Value == product.OwnerId || User.IsInRole("Administrator"))
                     {
                         <form method="get">
                             <button asp-controller="Product" asp-action="Edit" type="submit" name="id" value="@product.Id" class="btn btn-primary btn-warning">Edit</button>
