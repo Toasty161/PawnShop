@@ -27,7 +27,6 @@ namespace PawnShop.Core.Models
         [StringLength(PossessionLocationMaxLength, MinimumLength = PossessionLocationMinLength)]
         public string Location { get; set; } = string.Empty;
 
-        [Required]
         public string OwnerId { get; set; } = string.Empty;
     }
 }

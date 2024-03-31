@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PawnShop.Core.Models;
 using PawnShop.Core.Services;
 using PawnShop.Data;
+using System.Security.Claims;
 
 namespace PawnShop.Controllers
 {
@@ -31,6 +32,32 @@ namespace PawnShop.Controllers
 			}).ToListAsync();
 
 			return View(model);
+		}
+
+		[HttpGet]
+		public IActionResult Add()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Add(PossessionViewModel model)
+		{
+			if (!ModelState.IsValid)
+			{
+                return RedirectToAction(nameof(All));
+            }
+
+			model.OwnerId = GetUserId();
+
+			await _possessionService.AddAsync(model);
+
+			return RedirectToAction(nameof(All));
+		}
+
+		private string GetUserId()
+		{
+			return User.FindFirst(ClaimTypes.NameIdentifier).Value;
 		}
 	}
 }

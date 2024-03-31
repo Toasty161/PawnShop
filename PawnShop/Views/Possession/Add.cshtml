@@ -1,0 +1,31 @@
+﻿@using PawnShop.Core.Models
+@model PossessionViewModel
+@{
+	ViewBag.Title = "Add possession";
+}
+
+<div class="text-center">
+	<h1>Add a new possession</h1>
+    <form method="post">
+        <div class="mb-3">
+            <label for="exampleName" class="form-label">Name</label>
+            <input asp-for="Name" type="text" class="form-control" id="exampleName" name="Name">
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleArea" class="form-label">Area</label>
+            <input asp-for="Area" type="text" class="form-control" id="exampleArea" pattern="^\d+((.)|(.\d{0,2})?)$" name="Area">
+            <span asp-validation-for="Area" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label for="exampleLocation" class="form-label">Location</label>
+            <input asp-for="Location" type="text" class="form-control" id="exampleLocation" name="Location">
+            <span asp-validation-for="Location" class="text-danger"></span>
+        </div>
+        <button asp-controller="Possession" asp-action="Add" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
