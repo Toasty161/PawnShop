@@ -227,6 +227,30 @@ namespace PawnShop.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Sell(int id)
+        {
+            if (await _context.ProductBuyers.FindAsync(GetUserId(), id) == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            TempData["SellId"] = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Sell()
+        {
+            var entity = await _context.ProductBuyers.FindAsync(GetUserId(), (int)TempData["SellId"]);
+
+            _context.ProductBuyers.Remove(entity);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(All));
+        }
+
         private string GetUserId()
         {
             return User.FindFirst(ClaimTypes.NameIdentifier).Value;

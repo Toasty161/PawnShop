@@ -21,6 +21,9 @@
 						<p class="card-text">Weight: @product.Weight kg</p>
 						<p class="card-text">Category: @context.Categories.Find(product.CategoryId).Name</p>
 					</div>
+					<form method="get">
+						<button type="submit" asp-controller="Product" asp-action="Sell" name="id" value="@product.Id" class="btn-warning">Sell</button>
+					</form>
 				</div>
 			}
 		</div>
