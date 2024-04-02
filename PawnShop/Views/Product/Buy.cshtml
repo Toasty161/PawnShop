@@ -1,0 +1,15 @@
+﻿@{
+	ViewBag.Title = "Buy product?";
+}
+
+<div class="text-center">
+    <div class="card justify-content-center" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Do you want to buy this product?</h5>
+            <form method="post">
+                <button asp-controller="Product" asp-action="Buy" class="text-success">Buy</button>
+                <button asp-controller="Product" asp-action="All">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

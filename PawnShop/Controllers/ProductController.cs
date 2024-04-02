@@ -8,6 +8,7 @@ using PawnShop.Core.Services;
 using PawnShop.Data;
 using PawnShop.Infrastructure.Data.IdentityModels;
 using PawnShop.Infrastructure.Data.Models;
+using System;
 using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
@@ -156,6 +157,74 @@ namespace PawnShop.Controllers
             await _productService.DeleteAsync(deleteId);
 
             return RedirectToAction(nameof(All));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Buy(int id)
+        {
+            if (await _context.Products.FindAsync(id) == null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            if (await _context.ProductBuyers.FindAsync(GetUserId(), id) != null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            var product = await _context.Products.FindAsync(id);
+
+			if (product.OwnerId == GetUserId())
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+            TempData["BuyId"] = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Buy()
+        {
+            int buyId = (int)TempData["BuyId"];
+
+            if (await _context.ProductBuyers.FindAsync(GetUserId(), buyId) != null)
+            {
+                return RedirectToAction(nameof(All));
+            }
+
+			var product = await _context.Products.FindAsync(buyId);
+
+			if (product.OwnerId == GetUserId())
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			var entity = new ProductBuyer()
+            {
+                BuyerId = GetUserId(),
+                ProductId = buyId
+            };
+
+            await _context.ProductBuyers.AddAsync(entity);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(All));
+        }
+
+        public async Task<IActionResult> BoughtProducts()
+        {
+            var entities = await _context.ProductBuyers.Where(pb => pb.BuyerId == GetUserId()).ToListAsync();
+
+            List<ProductViewModel> model = new List<ProductViewModel>();
+
+            foreach (var productBuyer in entities)
+            {
+                model.Add(await _productService.GetByIdAsync(productBuyer.ProductId));
+            }
+
+            return View(model);
         }
 
         private string GetUserId()

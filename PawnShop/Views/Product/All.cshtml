@@ -1,5 +1,7 @@
 ﻿@using PawnShop.Core.Models
 @using System.Security.Claims
+@using PawnShop.Data
+@inject ApplicationDbContext context
 @model List<ProductViewModel>
 @{
 	ViewBag.Title = "All products";
@@ -8,7 +10,7 @@
 <div class="text-center">
     <h1>All available products:</h1>
 </div>
-
+<br />
 @if (Model.Count > 0)
 {
 	<div style="display:inline-flex">
@@ -31,7 +33,12 @@
                     }
                     else
                     {
-                        
+                        if (context.ProductBuyers.Find(User.FindFirst(ClaimTypes.NameIdentifier).Value, product.Id) == null)
+                        {
+                            <form>
+                                <button asp-controller="Product" asp-action="Buy" type="submit" name="id" value="@product.Id" class="btn btn-primary btn-success">Buy</button>
+                            </form>
+                        }
                     }
                 </div>
             </div>
