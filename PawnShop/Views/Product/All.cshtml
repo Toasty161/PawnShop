@@ -39,6 +39,10 @@
                                 <button asp-controller="Product" asp-action="Buy" type="submit" name="id" value="@product.Id" class="btn btn-primary btn-success">Buy</button>
                             </form>
                         }
+                        else
+                        {
+                            <p>You have already bought this product.</p>
+                        }
                     }
                 </div>
             </div>

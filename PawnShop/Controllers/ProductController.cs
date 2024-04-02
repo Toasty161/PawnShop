@@ -154,6 +154,11 @@ namespace PawnShop.Controllers
 				}
             }
 
+            foreach (var product in _context.ProductBuyers.Where(pb => pb.ProductId == deleteId))
+            {
+                _context.ProductBuyers.Remove(product);
+            }
+
             await _productService.DeleteAsync(deleteId);
 
             return RedirectToAction(nameof(All));
