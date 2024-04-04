@@ -1,5 +1,7 @@
 ﻿@using PawnShop.Core.Models
 @using System.Security.Claims
+@using PawnShop.Data
+@inject ApplicationDbContext context
 @model List<PossessionViewModel>
 @{
 	ViewBag.Title = "All possessions";
@@ -26,7 +28,16 @@
 						}
 						else
 						{
-							
+							if (await context.PossessionBuyers.FindAsync(User.FindFirst(ClaimTypes.NameIdentifier).Value, possession.Id) == null)
+							{
+								<form>
+									<button asp-controller="Possession" asp-action="Buy" name="id" value="@possession.Id" class="btn-success">Buy</button>
+								</form>
+							}
+							else
+							{
+								<p class="text-center">You have already bought this possession.</p>
+							}
 						}
 					</div>
 				</div>

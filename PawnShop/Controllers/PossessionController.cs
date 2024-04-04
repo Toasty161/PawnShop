@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using PawnShop.Core.Models;
 using PawnShop.Core.Services;
 using PawnShop.Data;
+using PawnShop.Infrastructure.Data.Models;
 using System.Security.Claims;
 
 namespace PawnShop.Controllers
@@ -131,7 +132,80 @@ namespace PawnShop.Controllers
 				}
 			}
 
+			foreach (var possessionBuyer in _context.PossessionBuyers.Where(pb => pb.PossessionId == id))
+			{
+				_context.PossessionBuyers.Remove(possessionBuyer);
+			}
+
 			await _possessionService.DeleteAsync(id);
+
+			return RedirectToAction(nameof(All));
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Buy(int id)
+		{
+			if (await _context.Possessions.FindAsync(id) == null)
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			if (await _context.PossessionBuyers.FindAsync(GetUserId(), id) != null)
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			TempData["BuyPossessionId"] = id;
+
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Buy()
+		{
+			var entity = new PossessionBuyer()
+			{
+				BuyerId = GetUserId(),
+				PossessionId = (int)TempData["BuyPossessionId"]
+			};
+
+			await _context.PossessionBuyers.AddAsync(entity);
+			await _context.SaveChangesAsync();
+
+			return RedirectToAction(nameof(All));
+		}
+
+		public async Task<IActionResult> BoughtPossessions()
+		{
+			var model = await _context.PossessionBuyers.ToListAsync();
+
+			return View(model);
+		}
+
+		[HttpGet]
+		public async Task<IActionResult> Sell(int id)
+		{
+			if (await _context.PossessionBuyers.FindAsync(GetUserId(), id) == null)
+			{
+				return RedirectToAction(nameof(All));
+			}
+
+			TempData["SellPossessionId"] = id;
+
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> Sell()
+		{
+			var entity = new PossessionBuyer()
+			{
+				BuyerId = GetUserId(),
+				PossessionId = (int)TempData["SellPossessionId"]
+			};
+
+			_context.PossessionBuyers.Remove(entity);
+			await _context.SaveChangesAsync();
 
 			return RedirectToAction(nameof(All));
 		}

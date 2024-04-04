@@ -1,0 +1,14 @@
+﻿@{
+	ViewBag.Title = "Buy Possession";
+}
+
+<div class="card text-center" style="width: 18rem;display:block;margin-left: auto; margin-right:auto">
+    <div class="card-body">
+        <h5 class="card-title">Confirm Buy</h5>
+        <p class="card-text">Do you want to buy this possession?</p>
+        <form method="post" style="display:inline-flex">
+            <button asp-controller="Possession" asp-action="Buy" class="text-success">Buy</button>
+            <button asp-controller="Possession" asp-action="All">Cancel</button>
+        </form>
+    </div>
+</div>
