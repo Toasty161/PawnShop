@@ -28,5 +28,17 @@ namespace PawnShop.Infrastructure.Data.Constants
 
         public const int PossessionLocationMaxLength = 100;
         public const int PossessionLocationMinLength = 10;
+
+        public const int ChatMessageMinLength = 1;
+        public const int ChatMessageMaxLength = 500;
+
+        public const int ChatMessageSenderMinLength = 1;
+        public const int ChatMessageSenderMaxLength = 20;
+
+        public const int ContactMessageMinLength = 10;
+        public const int ContactMessageMaxLength = 500;
+
+        public const int ContactMessageSenderMinLength = 1;
+        public const int ContactMessageSenderMaxLength = 20;
     }
 }
