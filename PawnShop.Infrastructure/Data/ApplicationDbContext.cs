@@ -21,6 +21,10 @@ namespace PawnShop.Data
 
         public DbSet<ProductBuyer> ProductBuyers { get; set; }
 
+        public DbSet<ChatMessage> ChatMessages { get; set; }
+
+        public DbSet<ContactMessage> ContactMessages { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<ProductBuyer>()
