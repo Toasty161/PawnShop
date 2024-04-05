@@ -26,7 +26,9 @@ namespace PawnShop.Core.Services
             {
                 Id = model.Id,
                 Message = model.Message,
-                Sender = model.Sender
+                Sender = model.Sender,
+                SenderId = model.SenderId,
+                TimeSent = model.TimeSent
             };
 
             await _context.ChatMessages.AddAsync(entity);
@@ -47,7 +49,9 @@ namespace PawnShop.Core.Services
             {
                 Id = model.Id,
                 Message = model.Message,
-                Sender = model.Sender
+                Sender = model.Sender,
+                SenderId = model.SenderId,
+                TimeSent = model.TimeSent
             };
 
             _context.ChatMessages.Update(entity);
@@ -62,7 +66,9 @@ namespace PawnShop.Core.Services
             {
                 Id = cm.Id,
                 Message = cm.Message,
-                Sender = cm.Sender
+                Sender = cm.Sender,
+                SenderId = cm.SenderId,
+                TimeSent = cm.TimeSent
             }).FirstAsync();
         }
     }
