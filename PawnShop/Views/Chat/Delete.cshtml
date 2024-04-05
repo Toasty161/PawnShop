@@ -1,0 +1,14 @@
+﻿@{
+	ViewBag.Title = "Confirm Delete";
+}
+
+<div class="card text-center" style="width: 18rem;display:block;margin-left: auto; margin-right:auto">
+    <div class="card-body">
+        <h5 class="card-title">Confirm Delete</h5>
+        <p class="card-text">Are you sure you want to delete this message?</p>
+        <form method="post" style="display:inline-flex">
+            <button type="submit" asp-controller="Chat" asp-action="Delete" class="text-danger">Delete</button>
+            <button type="submit" asp-controller="Chat" asp-action="">Cancel</button>
+        </form>
+    </div>
+</div>
