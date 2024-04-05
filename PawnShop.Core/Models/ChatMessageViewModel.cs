@@ -19,5 +19,10 @@ namespace PawnShop.Core.Models
         [Required]
         [StringLength(ChatMessageSenderMaxLength, MinimumLength = ChatMessageSenderMinLength)]
         public string Sender { get; set; } = string.Empty;
+
+        [Required]
+        public DateTime TimeSent { get; set; }
+
+        public string SenderId { get; set; } = string.Empty;
     }
 }
