@@ -41,7 +41,7 @@ namespace PawnShop.Infrastructure.Data.Constants
         public const int ContactMessageSenderMinLength = 1;
         public const int ContactMessageSenderMaxLength = 20;
 
-        public const string TimeSentFormat = "MM/dd/yyyy HH:mm";
+        public const string TimeSentFormat = "MMM dd, yyyy H:mm:ss tt zzz";
 
 	}
 }
