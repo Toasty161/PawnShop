@@ -56,6 +56,15 @@
                         <li class="nav-item">
                             <a class="nav-link" style="color:#11d7ed" asp-area="" asp-controller="Chat" asp-action="">Chat</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" style="color:#11d7ed" asp-area="" asp-controller="Contact" asp-action="Add">Contact us</a>
+                        </li>
+                        @if (User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:#11d7ed" asp-area="" asp-controller="Contact" asp-action="All">Contact messages</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

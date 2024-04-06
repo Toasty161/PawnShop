@@ -1,0 +1,25 @@
+﻿@using PawnShop.Core.Models
+@model ContactMessageViewModel
+@{
+	ViewBag.Title = "Contact Us";
+}
+
+<h1 class="text-center">Contact Us</h1>
+<br />
+<form method="post">
+    <div class="mb-3">
+        <label for="exampleSender" class="form-label">Sender</label>
+        <input asp-for="Sender" type="text" class="form-control" id="exampleSender">
+        <span asp-validation-for="Sender" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label for="exampleMessage" class="form-label">Message</label>
+        <input asp-for="Message" type="text" class="form-control" id="exampleMessage">
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+    <button asp-controller="Contact" asp-action="Add" type="submit" name="TimeSent" value="@DateTime.Now" class="btn btn-primary">Submit</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
